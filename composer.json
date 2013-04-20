@@ -1,0 +1,22 @@
+{
+    "name": "betawax/model",
+    "description": "",
+    "authors": [
+        {
+            "name": "Holger Weis",
+            "email": "holger.weis@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x",
+        "illuminate/database": "4.0.x",
+        "illuminate/validation": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Betawax\\Model": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
