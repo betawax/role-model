@@ -49,7 +49,8 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 	}
 	
 	/**
-	 * Override Eloquent's save method.
+	 * Validate the model's attributes and
+	 * save the model to the database.
 	 *
 	 * @param  array  $options
 	 * @return bool
@@ -58,10 +59,32 @@ class Model extends \Illuminate\Database\Eloquent\Model {
 	{
 		if ($this->validate())
 		{
-			return parent::save($options);
+			return self::performSave($options);
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Force save the model to the database.
+	 *
+	 * @param  array  $options
+	 * @return bool
+	 */
+	public function forceSave(array $options = array())
+	{
+		return self::performSave($options);
+	}
+	
+	/**
+	 * Implementation of Eloquent's save method.
+	 *
+	 * @param  array  $options
+	 * @return bool
+	 */
+	protected function performSave(array $options = array())
+	{
+		return parent::save($options);
 	}
 	
 }
