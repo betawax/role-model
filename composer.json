@@ -1,5 +1,5 @@
 {
-    "name": "betawax/model",
+    "name": "betawax/role-model",
     "description": "",
     "authors": [
         {
@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Betawax\\Model": "src/"
+            "Betawax\\RoleModel": "src/"
         }
     },
     "minimum-stability": "dev"

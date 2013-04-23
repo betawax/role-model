@@ -1,8 +1,8 @@
-<?php namespace Betawax\Model;
+<?php namespace Betawax\RoleModel;
 
 use Illuminate\Support\ServiceProvider;
 
-class ModelServiceProvider extends ServiceProvider {
+class RoleModelServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,7 +18,7 @@ class ModelServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('betawax/model');
+		$this->package('betawax/role-model');
 	}
 
 	/**

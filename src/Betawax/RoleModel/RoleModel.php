@@ -1,8 +1,9 @@
-<?php namespace Betawax\Model;
+<?php namespace Betawax\RoleModel;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 
-class Model extends \Illuminate\Database\Eloquent\Model {
+class RoleModel extends Model {
 	
 	/**
 	 * Validation rules.
