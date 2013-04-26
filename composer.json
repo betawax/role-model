@@ -14,7 +14,7 @@
         "illuminate/validation": "4.0.*"
     },
     "require-dev": {
-        "mockery/mockery": "0.7.*"
+        "mockery/mockery": "dev-master@dev"
     },
     "autoload": {
         "psr-0": {

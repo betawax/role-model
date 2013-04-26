@@ -1,5 +1,6 @@
 <?php
 
+use Betawax\RoleModel\RoleModel;
 use Mockery as m;
 
 class RoleModelTest extends PHPUnit_Framework_TestCase {
@@ -9,16 +10,49 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 		m::close();
 	}
 	
-	public function testModelInstance()
+	public function testModelInstances()
 	{
-		$model = new RoleModelStub;
-		$this->assertEquals('RoleModelStub', get_class($model));
-		$this->assertEquals('Betawax\RoleModel\RoleModel', get_parent_class($model));
+		$validator = m::mock('Illuminate\Validation\Validator');
+		$model = new RoleModelStub([], $validator);
+		
+		$this->assertInstanceOf('RoleModelStub', $model);
+		$this->assertInstanceOf('Betawax\RoleModel\RoleModel', $model);
+	}
+	
+	public function testValidatePasses()
+	{
+		$response = m::mock('StdClass');
+		$response->shouldReceive('fails')->once()->andReturn(false);
+		
+		$validator = m::mock('Illuminate\Validation\Validator');
+		$validator->shouldReceive('make')->once()->andReturn($response);
+		
+		$model = new RoleModelStub([], $validator);
+		$result = $model->validate();
+		
+		$this->assertTrue($result);
+		$this->assertNull($model->errors());
+	}
+	
+	public function testValidateFails()
+	{
+		$response = m::mock('StdClass');
+		$response->shouldReceive('fails')->once()->andReturn(true);
+		$response->shouldReceive('errors')->once()->andReturn('foobar');
+		
+		$validator = m::mock('Illuminate\Validation\Validator');
+		$validator->shouldReceive('make')->once()->andReturn($response);
+		
+		$model = new RoleModelStub([], $validator);
+		$result = $model->validate();
+		
+		$this->assertFalse($result);
+		$this->assertEquals('foobar', $model->errors());
 	}
 	
 }
 
-class RoleModelStub extends Betawax\RoleModel\RoleModel {
+class RoleModelStub extends RoleModel {
 	
 	protected $table = 'stub';
 	protected $guarded = array();
