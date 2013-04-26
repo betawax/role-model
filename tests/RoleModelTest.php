@@ -50,6 +50,21 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('foobar', $model->errors());
 	}
 	
+	public function testErrors()
+	{
+		$validator = m::mock('Illuminate\Validation\Validator');
+		$model = new RoleModelStub([], $validator);
+		
+		$this->assertNull($model->errors());
+		
+		$reflectionModel = new ReflectionObject($model);
+		$errors = $reflectionModel->getProperty('errors');
+		$errors->setAccessible(true);
+		$errors->setValue($model, 'foobar');
+		
+		$this->assertEquals('foobar', $model->errors());
+	}
+	
 }
 
 class RoleModelStub extends RoleModel {
