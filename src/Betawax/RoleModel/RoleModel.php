@@ -1,7 +1,7 @@
 <?php namespace Betawax\RoleModel;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator;
 
 class RoleModel extends Model {
 	
@@ -20,6 +20,26 @@ class RoleModel extends Model {
 	protected $errors;
 	
 	/**
+	 * Validator instance.
+	 *
+	 * @var Illuminate\Validation\Validator
+	 */
+	protected $validator;
+	
+	/**
+	 * Share the Validator instance.
+	 *
+	 * @param  array  $attributes
+	 * @param  Illuminate\Validation\Validator  $validator
+	 * @return void
+	 */
+	public function __construct(array $attributes = array(), Validator $validator = null)
+	{
+		parent::__construct($attributes);
+		$this->validator = $validator ? $validator : \App::make('validator');
+	}
+	
+	/**
 	 * Validate the model's attributes.
 	 *
 	 * @param  array  $rules
@@ -28,7 +48,7 @@ class RoleModel extends Model {
 	public function validate(array $rules = array())
 	{
 		$rules = $rules ? $rules : static::$rules;
-		$validator = Validator::make($this->attributes, $rules);
+		$validator = $this->validator->make($this->attributes, $rules);
 		
 		if ($validator->fails())
 		{
