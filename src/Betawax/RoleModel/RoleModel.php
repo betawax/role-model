@@ -27,6 +27,13 @@ class RoleModel extends Model {
 	protected $validator;
 	
 	/**
+	 * Force save.
+	 *
+	 * @var bool
+	 */
+	protected $force = false;
+	
+	/**
 	 * Share the Validator instance.
 	 *
 	 * @param  array  $attributes
@@ -36,7 +43,23 @@ class RoleModel extends Model {
 	public function __construct(array $attributes = array(), Validator $validator = null)
 	{
 		parent::__construct($attributes);
+		
 		$this->validator = $validator ? $validator : \App::make('validator');
+	}
+	
+	/**
+	 * Register event bindings.
+	 *
+	 * @return void
+	 */
+	public static function boot()
+	{
+		parent::boot();
+		
+		static::saving(function($model)
+		{
+			if ( ! $model->force) return $model->validate();
+		});
 	}
 	
 	/**
@@ -70,23 +93,6 @@ class RoleModel extends Model {
 	}
 	
 	/**
-	 * Validate the model's attributes and
-	 * save the model to the database.
-	 *
-	 * @param  array  $options
-	 * @return bool
-	 */
-	public function save(array $options = array())
-	{
-		if ($this->validate())
-		{
-			return self::performSave($options);
-		}
-		
-		return false;
-	}
-	
-	/**
 	 * Force save the model to the database.
 	 *
 	 * @param  array  $options
@@ -94,17 +100,7 @@ class RoleModel extends Model {
 	 */
 	public function forceSave(array $options = array())
 	{
-		return self::performSave($options);
-	}
-	
-	/**
-	 * Implementation of Eloquent's save method.
-	 *
-	 * @param  array  $options
-	 * @return bool
-	 */
-	protected function performSave(array $options = array())
-	{
+		$this->force = true;
 		return parent::save($options);
 	}
 	
