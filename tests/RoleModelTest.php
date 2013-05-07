@@ -65,6 +65,37 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('foobar', $model->errors());
 	}
 	
+	public function testHasErrors()
+	{
+		$validator = m::mock('Illuminate\Validation\Validator');
+		$model = new RoleModelStub([], $validator);
+		
+		$this->assertFalse($model->hasErrors());
+		
+		$response = m::mock('StdClass');
+		$response->shouldReceive('fails')->once()->andReturn(false);
+		
+		$validator = m::mock('Illuminate\Validation\Validator');
+		$validator->shouldReceive('make')->once()->andReturn($response);
+		
+		$model = new RoleModelStub([], $validator);
+		$model->validate();
+		
+		$this->assertFalse($model->hasErrors());
+		
+		$response = m::mock('StdClass');
+		$response->shouldReceive('fails')->once()->andReturn(true);
+		$response->shouldReceive('errors')->once()->andReturn('foobar');
+		
+		$validator = m::mock('Illuminate\Validation\Validator');
+		$validator->shouldReceive('make')->once()->andReturn($response);
+		
+		$model = new RoleModelStub([], $validator);
+		$model->validate();
+		
+		$this->assertTrue($model->hasErrors());
+	}
+	
 }
 
 class RoleModelStub extends RoleModel {

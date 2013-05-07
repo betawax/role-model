@@ -67,13 +67,19 @@ Role Model uses Eloquent's [model events](http://four.laravel.com/docs/eloquent#
 
 The validation itself is done via Laravel's `Validation` class.
 
-#### Retrieving errors
+#### Retrieving validation errors
 
 You retrieve validation errors via the `errors()` getter:
 
 	$model->errors()
 
 Like using the `Validation` class directly, the return value from `errors()` will be an instance of `MessageBag`.
+
+#### Check for validation errors
+
+To check if a model has validation errors, you use the `hasErrors()` method:
+
+	$model->hasErrors()
 
 #### Validate without saving
 

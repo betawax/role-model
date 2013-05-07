@@ -79,6 +79,7 @@ class RoleModel extends Model {
 			return false;
 		}
 		
+		$this->errors = null;
 		return true;
 	}
 	
@@ -90,6 +91,16 @@ class RoleModel extends Model {
 	public function errors()
 	{
 		return $this->errors;
+	}
+	
+	/**
+	 * Check if the model has validation errors.
+	 *
+	 * @return bool
+	 */
+	public function hasErrors()
+	{
+		return ! is_null($this->errors);
 	}
 	
 	/**
