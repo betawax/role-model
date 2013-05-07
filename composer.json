@@ -1,6 +1,8 @@
 {
     "name": "betawax/role-model",
-    "description": "",
+    "description": "Advanced models for Laravel's Eloquent ORM.",
+    "keywords": ["laravel", "eloquent"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Holger Weis",
