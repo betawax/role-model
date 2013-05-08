@@ -13,7 +13,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 	public function testModelInstances()
 	{
 		$validator = m::mock('Illuminate\Validation\Validator');
-		$model = new RoleModelStub([], $validator);
+		$model = new RoleModelStub(array(), $validator);
 		
 		$this->assertInstanceOf('RoleModelStub', $model);
 		$this->assertInstanceOf('Betawax\RoleModel\RoleModel', $model);
@@ -27,7 +27,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 		$validator = m::mock('Illuminate\Validation\Validator');
 		$validator->shouldReceive('make')->once()->andReturn($response);
 		
-		$model = new RoleModelStub([], $validator);
+		$model = new RoleModelStub(array(), $validator);
 		$result = $model->validate();
 		
 		$this->assertTrue($result);
@@ -43,7 +43,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 		$validator = m::mock('Illuminate\Validation\Validator');
 		$validator->shouldReceive('make')->once()->andReturn($response);
 		
-		$model = new RoleModelStub([], $validator);
+		$model = new RoleModelStub(array(), $validator);
 		$result = $model->validate();
 		
 		$this->assertFalse($result);
@@ -53,7 +53,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 	public function testErrors()
 	{
 		$validator = m::mock('Illuminate\Validation\Validator');
-		$model = new RoleModelStub([], $validator);
+		$model = new RoleModelStub(array(), $validator);
 		
 		$this->assertNull($model->errors());
 		
@@ -68,7 +68,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 	public function testHasErrors()
 	{
 		$validator = m::mock('Illuminate\Validation\Validator');
-		$model = new RoleModelStub([], $validator);
+		$model = new RoleModelStub(array(), $validator);
 		
 		$this->assertFalse($model->hasErrors());
 		
@@ -78,7 +78,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 		$validator = m::mock('Illuminate\Validation\Validator');
 		$validator->shouldReceive('make')->once()->andReturn($response);
 		
-		$model = new RoleModelStub([], $validator);
+		$model = new RoleModelStub(array(), $validator);
 		$model->validate();
 		
 		$this->assertFalse($model->hasErrors());
@@ -90,7 +90,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 		$validator = m::mock('Illuminate\Validation\Validator');
 		$validator->shouldReceive('make')->once()->andReturn($response);
 		
-		$model = new RoleModelStub([], $validator);
+		$model = new RoleModelStub(array(), $validator);
 		$model->validate();
 		
 		$this->assertTrue($model->hasErrors());
