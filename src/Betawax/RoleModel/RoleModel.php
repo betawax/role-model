@@ -104,6 +104,18 @@ class RoleModel extends Model {
 	}
 	
 	/**
+	 * Save the model to the database.
+	 *
+	 * @param  array  $options
+	 * @return bool
+	 */
+	public function save(array $options = array())
+	{
+		$this->force = false;
+		return parent::save($options);
+	}
+	
+	/**
 	 * Force save the model to the database.
 	 *
 	 * @param  array  $options
