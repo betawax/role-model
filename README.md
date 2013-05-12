@@ -41,12 +41,15 @@ Define validation rules for your model via the static `$rules` array:
 	class Foobar extends RoleModel {
 		
 		public static $rules = array(
-			'name' => 'required'
+			'name'  => 'required',
+			'email' => 'unique:foobar,email,:id:',
 		);
 		
 	}
 
 See the validation section in the Laravel documentation for a list of all available [validation rules](http://four.laravel.com/docs/validation#available-validation-rules).
+
+**Heads up!** Note that in the example above `:id:` is a placeholder that automatically gets replaced by the value of your model's primary key before validation. This allows the use of the [unique validation rule](http://four.laravel.com/docs/validation#rule-unique) when updating your model. You're welcome.
 
 #### Auto-validate on save
 
