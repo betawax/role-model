@@ -70,7 +70,7 @@ class RoleModel extends Model {
 	 */
 	public function validate(array $rules = array())
 	{
-		$rules = $rules ? $rules : static::$rules;
+		$rules = self::processRules($rules ? $rules : static::$rules);
 		$validator = $this->validator->make($this->attributes, $rules);
 		
 		if ($validator->fails())
@@ -81,6 +81,23 @@ class RoleModel extends Model {
 		
 		$this->errors = null;
 		return true;
+	}
+	
+	/**
+	 * Process validation rules.
+	 *
+	 * @param  array  $rules
+	 * @return array  $rules
+	 */
+	protected function processRules($rules)
+	{
+		array_walk($rules, function(&$item)
+		{
+			// Replace placeholders
+			$item = stripos($item, ':id:') !== false ? str_ireplace(':id:', $this->getKey(), $item) : $item;
+		});
+		
+		return $rules;
 	}
 	
 	/**
