@@ -89,12 +89,13 @@ class RoleModel extends Model {
 	 * @param  array  $rules
 	 * @return array  $rules
 	 */
-	protected function processRules($rules)
+	protected function processRules(array $rules)
 	{
-		array_walk($rules, function(&$item)
+		$key = $this->getKey();
+		array_walk($rules, function(&$item, $key)
 		{
 			// Replace placeholders
-			$item = stripos($item, ':id:') !== false ? str_ireplace(':id:', $this->getKey(), $item) : $item;
+			$item = stripos($item, ':id:') !== false ? str_ireplace(':id:', $key, $item) : $item;
 		});
 		
 		return $rules;
