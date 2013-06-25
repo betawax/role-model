@@ -1,6 +1,12 @@
-# Role Model [![Build Status](https://travis-ci.org/betawax/role-model.png?branch=master)](https://travis-ci.org/betawax/role-model) #
+# Role Model [![Latest Stable Version](https://poser.pugx.org/betawax/role-model/v/stable.png)](https://packagist.org/packages/betawax/role-model) [![Build Status](https://travis-ci.org/betawax/role-model.png?branch=master)](https://travis-ci.org/betawax/role-model) #
 
 Role Model adds some extra functionality to your Laravel 4 Eloquent models, currently focusing on validation. Read the following documentation to get started in minutes.
+
+- [Installation](#installation)
+- [Usage](#usage)
+	- [Validation](#validation)
+- [Changelog](#changelog)
+- [License](#license)
 
 ## Installation
 
@@ -117,6 +123,20 @@ You can retrieve your model's validation rules without the need to instantiate t
 If you want to force save your model without validation, simply use the `forceSave()` method instead of `save()`:
 
 	$model->forceSave()
+
+## Changelog
+
+### Version 1.0.2 (13.06.2013)
+
+- Bugfix
+
+### Version 1.0.1 (13.06.2013)
+
+- Bugfix
+
+### Version 1.0.0 (13.05.2013)
+
+- Initial release
 
 ## License
 
