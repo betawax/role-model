@@ -30,18 +30,39 @@ class ValidationTest extends PHPUnit_Framework_TestCase {
 		$this->assertNotNull($model->errors());
 	}
 	
+	public function testProcessRules()
+	{
+		$model = new RoleModelValidationStub(array(), self::validatorMock());
+		$rules = RoleModelValidationStub::$rules;
+		
+		$processRules = new ReflectionMethod($model, 'processRules');
+		$processRules->setAccessible(true);
+		
+		$expected = array('name' => 'required', 'email' => 'unique:foobar,email,');
+		$result = $processRules->invokeArgs($model, array($rules));
+		
+		$this->assertEquals($expected, $result);
+		
+		$model->id = 42;
+		
+		$expected = array('name' => 'required', 'email' => 'unique:foobar,email,42');
+		$result = $processRules->invokeArgs($model, array($rules));
+		
+		$this->assertEquals($expected, $result);
+	}
+	
 	public function testErrors()
 	{
 		$model = new RoleModelValidationStub(array(), self::validatorMock());
 		
 		$this->assertNull($model->errors());
 		
-		$reflectionModel = new ReflectionObject($model);
-		$errors = $reflectionModel->getProperty('errors');
+		$errors = new ReflectionProperty($model, 'errors');
 		$errors->setAccessible(true);
-		$errors->setValue($model, 'foobar');
+		$errors->setValue($model, new Illuminate\Support\MessageBag);
 		
 		$this->assertNotNull($model->errors());
+		$this->assertInstanceOf('Illuminate\Support\MessageBag', $model->errors());
 	}
 	
 	public function testHasErrors()
@@ -93,7 +114,9 @@ class ValidationTest extends PHPUnit_Framework_TestCase {
 
 class RoleModelValidationStub extends RoleModel {
 	
-	protected $table = 'validation_stub';
-	protected $guarded = array();
+	public static $rules = array(
+		'name'  => 'required',
+		'email' => 'unique:foobar,email,:id:',
+	);
 	
 }

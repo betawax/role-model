@@ -23,7 +23,4 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 
 class RoleModelStub extends RoleModel {
 	
-	protected $table = 'stub';
-	protected $guarded = array();
-	
 }
