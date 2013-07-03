@@ -128,11 +128,11 @@ If you want to force save your model without validation, simply use the `forceSa
 
 ### Version 1.0.2 (13.06.2013)
 
-- Bugfix
+- Fix closure mistake introduced in 1.0.1
 
 ### Version 1.0.1 (13.06.2013)
 
-- Bugfix
+- Fix object context error in PHP 5.3
 
 ### Version 1.0.0 (13.05.2013)
 
