@@ -71,11 +71,11 @@ class RoleModel extends Model {
 	public function validate(array $rules = array())
 	{
 		$rules = self::processRules($rules ? $rules : static::$rules);
-		$validator = $this->validator->make($this->attributes, $rules);
+		$this->validator = $this->validator->make($this->attributes, $rules);
 		
-		if ($validator->fails())
+		if ($this->validator->fails())
 		{
-			$this->errors = $validator->errors();
+			$this->errors = $this->validator->errors();
 			return false;
 		}
 		
@@ -99,6 +99,16 @@ class RoleModel extends Model {
 		});
 		
 		return $rules;
+	}
+	
+	/**
+	 * Get the Validator instance.
+	 *
+	 * @return Illuminate\Validation\Validator
+	 */
+	public function validator()
+	{
+		return $this->validator;
 	}
 	
 	/**
