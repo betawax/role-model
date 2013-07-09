@@ -20,21 +20,21 @@ class RoleModel extends Model {
 	protected $errors;
 	
 	/**
-	 * Validator instance.
+	 * The Validator instance.
 	 *
 	 * @var Illuminate\Validation\Validator
 	 */
 	protected $validator;
 	
 	/**
-	 * Force save.
+	 * Indicates if the model should be saved without validation.
 	 *
 	 * @var bool
 	 */
 	protected $force = false;
 	
 	/**
-	 * Share the Validator instance.
+	 * Create a new RoleModel instance.
 	 *
 	 * @param  array  $attributes
 	 * @param  Illuminate\Validation\Validator  $validator
@@ -70,7 +70,7 @@ class RoleModel extends Model {
 	 */
 	public function validate(array $rules = array())
 	{
-		$rules = self::processRules($rules ? $rules : static::$rules);
+		$rules = $this->processRules($rules ? $rules : static::$rules);
 		$this->validator = $this->validator->make($this->attributes, $rules);
 		
 		if ($this->validator->fails())
