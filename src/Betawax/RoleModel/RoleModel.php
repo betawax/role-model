@@ -156,13 +156,13 @@ class RoleModel extends Model {
 	}
 	
 	/**
-	 * Returns true if not validation needed before save
-	 * 
+	 * Determine if the model instance should be saved without validation.
+	 *
 	 * @return bool
 	 */
 	public function isForced()
 	{
-		return $this->force;	
+		return $this->force;
 	}
 	
 }
