@@ -58,7 +58,7 @@ class RoleModel extends Model {
 		
 		static::saving(function($model)
 		{
-			if ( ! $model->force) return $model->validate();
+			if ( ! $model->isForced()) return $model->validate();
 		});
 	}
 	
@@ -143,6 +143,16 @@ class RoleModel extends Model {
 	{
 		$this->force = true;
 		return parent::save($options);
+	}
+	
+	/**
+	 * Returns true if not validation needed before save
+	 * 
+	 * @return bool
+	 */
+	public function isForced()
+	{
+		return $this->force;	
 	}
 	
 }
