@@ -27,6 +27,13 @@ class RoleModel extends Model {
 	protected $validator;
 	
 	/**
+	 * The used Validator instance.
+	 *
+	 * @var Illuminate\Validation\Validator
+	 */
+	protected $validatorInstance;
+	
+	/**
 	 * Indicates if the model should be saved without validation.
 	 *
 	 * @var bool
@@ -71,11 +78,11 @@ class RoleModel extends Model {
 	public function validate(array $rules = array())
 	{
 		$rules = $this->processRules($rules ? $rules : static::$rules);
-		$this->validator = $this->validator->make($this->attributes, $rules);
+		$this->validatorInstance = $this->validator->make($this->attributes, $rules);
 		
-		if ($this->validator->fails())
+		if ($this->validatorInstance->fails())
 		{
-			$this->errors = $this->validator->errors();
+			$this->errors = $this->validatorInstance->errors();
 			return false;
 		}
 		
@@ -102,13 +109,13 @@ class RoleModel extends Model {
 	}
 	
 	/**
-	 * Get the Validator instance.
+	 * Get the used Validator instance.
 	 *
 	 * @return Illuminate\Validation\Validator
 	 */
 	public function validator()
 	{
-		return $this->validator;
+		return $this->validatorInstance;
 	}
 	
 	/**

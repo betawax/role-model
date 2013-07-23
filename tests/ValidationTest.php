@@ -53,13 +53,14 @@ class ValidationTest extends PHPUnit_Framework_TestCase {
 	
 	public function testValidator()
 	{
-		$validator = self::validatorMock();
+		$validator = self::validatorPassMock();
 		$model = new RoleModelValidationStub(array(), $validator);
 		
-		$modelValidator = $model->validator();
+		$this->assertNull($model->validator());
 		
-		$this->assertInstanceOf('Illuminate\Validation\Validator', $modelValidator);
-		$this->assertEquals($validator, $modelValidator);
+		$model->validate();
+		
+		$this->assertNotNull($model->validator());
 	}
 	
 	public function testErrors()
