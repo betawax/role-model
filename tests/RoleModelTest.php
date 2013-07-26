@@ -12,7 +12,7 @@ class RoleModelTest extends PHPUnit_Framework_TestCase {
 	
 	public function testModelInstances()
 	{
-		$validator = m::mock('Illuminate\Validation\Validator');
+		$validator = m::mock('Illuminate\Validation\Factory');
 		$model = new RoleModelStub(array(), $validator);
 		
 		$this->assertInstanceOf('RoleModelStub', $model);

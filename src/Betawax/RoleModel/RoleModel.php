@@ -1,7 +1,7 @@
 <?php namespace Betawax\RoleModel;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Validator;
+use Illuminate\Validation\Factory as Validator;
 
 class RoleModel extends Model {
 	
@@ -27,11 +27,11 @@ class RoleModel extends Model {
 	protected $validator;
 	
 	/**
-	 * The used Validator instance.
+	 * The Validator factory instance.
 	 *
-	 * @var Illuminate\Validation\Validator
+	 * @var Illuminate\Validation\Factory
 	 */
-	protected $validatorInstance;
+	protected $validatorFactory;
 	
 	/**
 	 * Indicates if the model should be saved without validation.
@@ -44,14 +44,14 @@ class RoleModel extends Model {
 	 * Create a new RoleModel instance.
 	 *
 	 * @param  array  $attributes
-	 * @param  Illuminate\Validation\Validator  $validator
+	 * @param  Illuminate\Validation\Factory  $validator
 	 * @return void
 	 */
 	public function __construct(array $attributes = array(), Validator $validator = null)
 	{
 		parent::__construct($attributes);
 		
-		$this->validator = $validator ? $validator : \App::make('validator');
+		$this->validatorFactory = $validator ? $validator : \App::make('validator');
 	}
 	
 	/**
@@ -78,11 +78,11 @@ class RoleModel extends Model {
 	public function validate(array $rules = array())
 	{
 		$rules = $this->processRules($rules ? $rules : static::$rules);
-		$this->validatorInstance = $this->validator->make($this->attributes, $rules);
+		$this->validator = $this->validatorFactory->make($this->attributes, $rules);
 		
-		if ($this->validatorInstance->fails())
+		if ($this->validator->fails())
 		{
-			$this->errors = $this->validatorInstance->errors();
+			$this->errors = $this->validator->errors();
 			return false;
 		}
 		
@@ -109,13 +109,13 @@ class RoleModel extends Model {
 	}
 	
 	/**
-	 * Get the used Validator instance.
+	 * Get the Validator instance.
 	 *
 	 * @return Illuminate\Validation\Validator
 	 */
 	public function validator()
 	{
-		return $this->validatorInstance;
+		return $this->validator;
 	}
 	
 	/**

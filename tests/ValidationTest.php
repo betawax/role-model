@@ -96,7 +96,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase {
 	
 	protected function validatorMock()
 	{
-		return m::mock('Illuminate\Validation\Validator');
+		return m::mock('Illuminate\Validation\Factory');
 	}
 	
 	protected function validatorPassMock()
