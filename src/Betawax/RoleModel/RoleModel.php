@@ -51,7 +51,7 @@ class RoleModel extends Model {
 	{
 		parent::__construct($attributes);
 		
-		$this->validatorFactory = $validator ? $validator : \App::make('validator');
+		$this->validatorFactory = $validator ?: \App::make('validator');
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class RoleModel extends Model {
 	 */
 	public function validate(array $rules = array())
 	{
-		$rules = $this->processRules($rules ? $rules : static::$rules);
+		$rules = $this->processRules($rules ?: static::$rules);
 		$this->validator = $this->validatorFactory->make($this->attributes, $rules);
 		
 		if ($this->validator->fails())
