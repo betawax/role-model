@@ -1,6 +1,8 @@
 # Role Model [![Latest Stable Version](https://poser.pugx.org/betawax/role-model/v/stable.png)](https://packagist.org/packages/betawax/role-model) [![Build Status](https://travis-ci.org/betawax/role-model.png?branch=master)](https://travis-ci.org/betawax/role-model) #
 
-Role Model adds some extra functionality to your Laravel 4 Eloquent models, currently focusing on validation. Read the following documentation to get started in minutes.
+Role Model adds some extra functionality to your Laravel 4 Eloquent models, currently focusing on validation. Read the following documentation to get started.
+
+## Table of contents
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -17,6 +19,8 @@ Install the package via Composer by requiring it in your `composer.json`:
 	}
 
 Don't forget to run `composer install` afterwards.
+
+**Heads up!** Use `~1.0` to get only stable releases until the next major release or `dev-master` to stay up to date with the latest commits in the master branch.
 
 ---
 
@@ -118,6 +122,14 @@ You can retrieve your model's validation rules without the need to instantiate t
 
 	$model::$rules // array
 
+#### Access the Validator instance
+
+You are free to access the Validator instance after validation by using the `validator` getter:
+
+	$model->validate(); // or $model->save()
+	$validator = $model->validator(); // Illuminate\Validation\Validator
+	$messages = $validator->messages();
+
 #### Force save without validation
 
 If you want to force save your model without validation, simply use the `forceSave()` method instead of `save()`:
@@ -125,6 +137,12 @@ If you want to force save your model without validation, simply use the `forceSa
 	$model->forceSave()
 
 ## Changelog
+
+### Version 1.0.3 (27.07.2013)
+
+- Add `validator` and `isForced` methods
+- Improve unit tests and test against PHP 5.5
+- Fix `forceSave`, see issue [#1](https://github.com/betawax/role-model/issues/1)
 
 ### Version 1.0.2 (13.06.2013)
 
