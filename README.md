@@ -1,6 +1,6 @@
 # Role Model [![Latest Stable Version](https://poser.pugx.org/betawax/role-model/v/stable.png)](https://packagist.org/packages/betawax/role-model) [![Build Status](https://travis-ci.org/betawax/role-model.png?branch=master)](https://travis-ci.org/betawax/role-model) #
 
-Role Model adds some extra functionality to your Laravel 4 Eloquent models, currently focusing on validation. Read the following documentation to get started.
+Role Model adds validation functionality to your Laravel 4 Eloquent models.
 
 ## Table of contents
 
@@ -138,23 +138,7 @@ If you want to force save your model without validation, simply use the `forceSa
 
 ## Changelog
 
-### Version 1.0.3 (27.07.2013)
-
-- Add `validator` and `isForced` methods
-- Improve unit tests and test against PHP 5.5
-- Fix `forceSave`, see issue [#1](https://github.com/betawax/role-model/issues/1)
-
-### Version 1.0.2 (13.06.2013)
-
-- Fix closure mistake introduced in 1.0.1
-
-### Version 1.0.1 (13.06.2013)
-
-- Fix object context error in PHP 5.3
-
-### Version 1.0.0 (13.05.2013)
-
-- Initial release
+See the GitHub [releases](https://github.com/betawax/role-model/releases) page for a list of changes.
 
 ## License
 
