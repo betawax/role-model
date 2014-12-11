@@ -102,7 +102,8 @@ class RoleModel extends Model {
 		array_walk($rules, function(&$item) use ($id)
 		{
 			// Replace placeholders
-			$item = stripos($item, ':id:') !== false ? str_ireplace(':id:', $id, $item) : $item;
+			if(!is_array($item))
+				$item = stripos($item, ':id:') !== false ? str_ireplace(':id:', $id, $item) : $item;
 		});
 		
 		return $rules;
