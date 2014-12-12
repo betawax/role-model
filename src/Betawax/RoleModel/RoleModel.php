@@ -65,7 +65,9 @@ class RoleModel extends Model {
 		
 		static::saving(function($model)
 		{
-			if ( ! $model->isForced()) return $model->validate();
+			if ( ! $model->isForced())
+                if($model->validate() === false)
+                    return false;
 		});
 	}
 	
