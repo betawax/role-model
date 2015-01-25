@@ -105,10 +105,26 @@ class RoleModel extends Model {
 		{
 			// Replace placeholders
 			if(!is_array($item))
-				$item = stripos($item, ':id:') !== false ? str_ireplace(':id:', $id, $item) : $item;
+				$item = $this->processRule($item, $id);
+			else
+				array_walk($item, function(&$subItem) use ($id){
+					$subItem = $this->processRule($subItem, $id);
+				});
 		});
 		
 		return $rules;
+	}
+
+	/**
+	 * Processes a single validation rule.
+	 * 
+	 * @param $item
+	 * @param $id
+	 * @return mixed
+	 */
+	protected function processRule(&$item, $id)
+	{
+		return stripos($item, ':id:') !== false ? str_ireplace(':id:', $id, $item) : $item;
 	}
 	
 	/**
