@@ -57,8 +57,6 @@ class RoleModel extends Model {
 	 */
 	public function __construct(array $attributes = array(), Validator $validator = null)
 	{
-		parent::__construct($attributes);
-
 		/**
 		 * Generate fillable array from rules arrays keys.
 		 */
@@ -67,6 +65,8 @@ class RoleModel extends Model {
 			$className = get_class($this);
 			$this->fillable = array_keys($className::$rules);
 		}
+
+		parent::__construct($attributes);
 		
 		$this->validatorFactory = $validator ?: \App::make('validator');
 	}
