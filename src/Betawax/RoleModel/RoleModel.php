@@ -4,7 +4,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Factory as Validator;
 
 class RoleModel extends Model {
-	
+
+
+	/**
+	 * Determines if the rules array keys are being used for the fillable array.
+	 *
+	 * @var bool
+     */
+	protected $useRulesAsFillable = false;
+
 	/**
 	 * Validation rules.
 	 *
@@ -49,6 +57,15 @@ class RoleModel extends Model {
 	 */
 	public function __construct(array $attributes = array(), Validator $validator = null)
 	{
+		/**
+		 * Generate fillable array from rules arrays keys.
+		 */
+		if($this->useRulesAsFillable)
+		{
+			$className = get_class($this);
+			$this->fillable = array_keys($className::$rules);
+		}
+
 		parent::__construct($attributes);
 		
 		$this->validatorFactory = $validator ?: \App::make('validator');
@@ -65,7 +82,9 @@ class RoleModel extends Model {
 		
 		static::saving(function($model)
 		{
-			if ( ! $model->isForced()) return $model->validate();
+			if ( ! $model->isForced())
+                if($model->validate() === false)
+                    return false;
 		});
 	}
 	
@@ -102,10 +121,27 @@ class RoleModel extends Model {
 		array_walk($rules, function(&$item) use ($id)
 		{
 			// Replace placeholders
-			$item = stripos($item, ':id:') !== false ? str_ireplace(':id:', $id, $item) : $item;
+			if(!is_array($item))
+				$item = $this->processRule($item, $id);
+			else
+				array_walk($item, function(&$subItem) use ($id){
+					$subItem = $this->processRule($subItem, $id);
+				});
 		});
 		
 		return $rules;
+	}
+
+	/**
+	 * Processes a single validation rule.
+	 * 
+	 * @param $item
+	 * @param $id
+	 * @return mixed
+	 */
+	protected function processRule(&$item, $id)
+	{
+		return stripos($item, ':id:') !== false ? str_ireplace(':id:', $id, $item) : $item;
 	}
 	
 	/**
