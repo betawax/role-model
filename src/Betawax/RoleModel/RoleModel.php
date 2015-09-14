@@ -4,7 +4,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Factory as Validator;
 
 class RoleModel extends Model {
-	
+
+
+	/**
+	 * Determines if the rules array keys are being used for the fillable array.
+	 *
+	 * @var bool
+     */
+	protected $useRulesAsFillable = false;
+
 	/**
 	 * Validation rules.
 	 *
@@ -50,6 +58,15 @@ class RoleModel extends Model {
 	public function __construct(array $attributes = array(), Validator $validator = null)
 	{
 		parent::__construct($attributes);
+
+		/**
+		 * Generate fillable array from rules arrays keys.
+		 */
+		if($this->useRulesAsFillable)
+		{
+			$className = get_class($this);
+			$this->fillable = array_keys($className::$rules);
+		}
 		
 		$this->validatorFactory = $validator ?: \App::make('validator');
 	}
